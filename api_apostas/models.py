@@ -1,12 +1,6 @@
 from django.db import models
 
 # Create your models here.
-class Aposta(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='apostas')
-    pontos = models.DecimalField(default=0, max_digits=10, decimal_places=2)
-    palpite = models.CharField(max_length=100)
-    status = models.CharField(max_length=100)
-    multiplicador = models.DecimalField(default=1, max_digits=3, decimal_places=2)
 
 class Jogo(models.Model):
     status = models.CharField(max_length=100)
@@ -33,6 +27,13 @@ class Usuario(models.Model):
     dataNascimento = models.DateField
     login = models.CharField(max_length=100)
     senha = models.CharField(max_length=100)
-    pontos = models.DecimalField(default=1000)
-    pontos_maximo = models.DecimalField(default=1000)
+    pontos = models.DecimalField(default=1000, max_digits=10, decimal_places=2)
+    pontos_maximo = models.DecimalField(default=1000, max_digits=10, decimal_places=2)
     totalAcertos = models.IntegerField(default=0)
+
+class Aposta(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='apostas')
+    pontos = models.DecimalField(default=0, max_digits=10, decimal_places=2)
+    palpite = models.CharField(max_length=100)
+    status = models.CharField(max_length=100)
+    multiplicador = models.DecimalField(default=1, max_digits=3, decimal_places=2)
